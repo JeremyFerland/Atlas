@@ -8,6 +8,7 @@ const int numberOfLEDStrip = 8;
 const int pinLED[numberOfLEDStrip] = {4, 6, 8, 10, 12, 14, 16, 18};
 const int pinLEDPassive= 20;
 const int nbLED[numberOfLEDStrip] = {60, 60, 60, 60, 60, 60, 60, 60};
+const int grosseurPorte = 20;
 
 Adafruit_NeoPixel stripPassive = Adafruit_NeoPixel(60, pinLEDPassive, NEO_GRB + NEO_KHZ800);
 
@@ -23,7 +24,7 @@ Adafruit_NeoPixel strip[numberOfLEDStrip] = {
 };
 uint32_t color[] = {
   strip[0].Color(0, 0, 0),
-  strip[0].Color(205, 205, 150),
+  strip[0].Color(0, 0, 255), //le bleu qu'on va vouloir
   strip[0].Color(255, 0, 0),
   strip[0].Color(0, 255, 0),
 };
@@ -64,8 +65,17 @@ void messageReceived() {
    openCloseDoor(3,message.readInt());
   }
 }
-Void openCloseDoor ( int door, int isOpen){
-  
+void openCloseDoor ( int door, int isOpen){
+ for (int x =0 ; x < 4; x++){
+  if(door == x){
+    for (uint16_t i = 0; i < grosseurPorte/2 ; i++) {
+    strip[(x*2)+1].setPixelColor(i, color[isOpen]);
+    strip[(x*2)].setPixelColor(i, color[isOpen]);
+    strip[x*2].show();
+    strip[(x*2)+1].show();  
+    }
+  }
+ } 
 }
 
 void colorWipe(uint32_t c, uint8_t wait, Adafruit_NeoPixel currentStrip) {
