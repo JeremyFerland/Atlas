@@ -1,0 +1,14 @@
+Received:
+	Floor Symbol:
+		/SymbolX int
+	Doors:
+		/DoorX bool
+
+Send:
+	Road:
+		/RoadX float float
+	Road hit:
+		/RoadHit int (2 good road, 1 one road destroy, 0 wrongRoadConnect)
+	Finish
+		/Succes int (1 finish)
+
