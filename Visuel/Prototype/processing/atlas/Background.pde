@@ -12,16 +12,24 @@ class Background {
   Background() {
     
     stone = loadImage("stone.jpg");
-    padding = 50;
+    padding = 0.6;
     gridResolution_H = 100;
     gridResolution_V = 100;
-    interval_H = width/gridResolution_H;
-    interval_V = height/gridResolution_V;
+    interval_H = (width/gridResolution_H);
+    interval_V = (height/gridResolution_V);
   }
 
 
   void display() {
 
+    pushMatrix();
+    translate((width-(width*padding))/2,(height-(height*padding))/2);
+    scale(1*padding, 1*padding);
+    
+      //spotLight(39, 163, 163, 0, 0, 2000, 0, 0, -1, PI, 200);
+    
+    
+    // Draw vertex background
     for (int i = 0; i < gridResolution_H; i++) {
       noStroke();
       for (int j = 0; j <gridResolution_V; j++) {
@@ -39,5 +47,6 @@ class Background {
         endShape(CLOSE);
       }
     }
+    popMatrix();
   }
 }

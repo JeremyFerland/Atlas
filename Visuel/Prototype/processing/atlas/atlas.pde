@@ -22,11 +22,11 @@ Pyramid pyramid;
 
 PathFinder pathFinder;
 
-
+Symbols symbols;
 
 void settings() {
   // 2 FullHD projectors
-  size(1920, 2160, P3D);
+  size(1920, 1920, P3D);
   PJOGL.profile=1;
 }
 
@@ -34,9 +34,12 @@ void setup() {
   background(0);
 
   background = new Background();
-
+  
   pyramid = new Pyramid();
 
+  pathFinder = new PathFinder();
+  
+  symbols = new Symbols();
 
   // Create syhpon server to send frames out.
   syphonServer = new SyphonServer(this, "Processing Syphon");
@@ -44,14 +47,14 @@ void setup() {
 
 void draw() {
   background(0);
-
-  //spotLight(39, 163, 163, mouseX, mouseY, 2000, 0, 0, -1, PI, 200);
+  
   background.display();
-
+  
   pyramid.display();
+  
+  pathFinder.display();
 
-//fill(255);
-//ellipse(width/2, height/2, 1920,1920);
+  symbols.display();
 
   // ** LEAVE AT THE END OF DRAW FUNCTION **
   syphonServer.sendScreen();

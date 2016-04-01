@@ -1,7 +1,7 @@
 class Pyramid {
 
   PVector loc;
-  float pyramidSize = 200;
+  float pyramidSize = width/12;
 
   PImage texture;
 
@@ -76,7 +76,7 @@ class Pyramid {
 
       // Create a new destination color
       r = random(20, 50);
-      g = random(150, 175);
+      g = random(150, 165);
       b = random(150, 175);
 
       //Set color destination value
