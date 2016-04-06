@@ -2,29 +2,31 @@
 using System.Collections;
 
 public class ambientLight_flicker : MonoBehaviour {
-
-
+	
 	Color[] color = new Color[2];
 	public Light light;
+	float intensityValue = 0;
+	float intensityTarget = 0.05f;
+	float intensitySpeed = 0.0001f;
 	float r, g, b;
 	Color light_color;
-	float speed;
+	float flickerSpeed = 5;
 	float lerpValue;
-
-
+	
 	// Use this for initialization
 	void Start () {
 		light = GetComponent<Light>();
 		for (int i = 0; i < 2; i++) {
 			color [i] = new Color (0, 0, 0);
 		}
-		speed = 5;
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		lerpValue = Mathf.PingPong (Time.time * speed, 1);
+		fadein();
+
+		lerpValue = Mathf.PingPong (Time.time * flickerSpeed, 1);
 
 		light.color = Color.Lerp(color[0], color[1], lerpValue);
 
@@ -44,6 +46,15 @@ public class ambientLight_flicker : MonoBehaviour {
 
 			color [0] = new Color (r, g, b, 1);
 		}
-
 	}
+	void fadein(){
+
+		if (light.intensity < intensityTarget) {
+		
+			intensityValue += intensitySpeed;
+		}
+
+		light.intensity = intensityValue;
+	}
+
 }
