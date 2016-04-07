@@ -6,7 +6,7 @@ public class OSCReceive : MonoBehaviour {
 	public OSC oscReference;
 
 	Symbol symbols;
-	SymbolGlowSpotlight symbolGlowSpot;
+	public SymbolGlowSpotlight symbolGlowSpot;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +17,10 @@ public class OSCReceive : MonoBehaviour {
 
 		// Restart the game
 		if (message.address == "/Success") {
+			float data = message.GetFloat (0);
+			if (data == 1){
 			symbols.fadeout ();
+			}
 		}
 		// Select a symbol
 		for (int i = 0; i <12; i++) {
