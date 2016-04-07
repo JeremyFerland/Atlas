@@ -14,3 +14,10 @@ Send: 55555
 	Finish
 		/Succes int (1 finish)
 
+
+Max Son
+	/Roadx int int (x,y)
+	/DoorX bool
+	/Succes int
+	/RoadHit int (2 good road, 1 one road destroy, 0 wrongRoadConnect)
+	/SymbolX int

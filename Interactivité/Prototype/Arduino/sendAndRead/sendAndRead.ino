@@ -2,7 +2,7 @@
 
 #include <NewPing.h>
 
-const int numberOfDistanceSensor = 12;
+const int numberOfDistanceSensor = 2;
 const int maxDistanceDistance = 50;  
 const int distanceInterval = 50;
 
@@ -13,16 +13,6 @@ uint8_t currentDistance = 0;
 NewPing distanceSensor [numberOfDistanceSensor] = {
   NewPing(30,31,maxDistanceDistance),
   NewPing(32,33,maxDistanceDistance),
-  NewPing(34,35,maxDistanceDistance),
-  NewPing(36,37,maxDistanceDistance),
-  NewPing(38,39,maxDistanceDistance), 
-  NewPing(40,41,maxDistanceDistance),
-  NewPing(42,43,maxDistanceDistance),
-  NewPing(44,45,maxDistanceDistance),
-  NewPing(46,47,maxDistanceDistance),
-  NewPing(48,49,maxDistanceDistance),
-  NewPing(50,51,maxDistanceDistance),
-  NewPing(52,53,maxDistanceDistance)
 };
 
 void setup() {
@@ -54,7 +44,7 @@ void echoCheck() { // If ping received, set the sensor distance to array.
 void oneSensorCycle() { // Sensor ping cycle complete, do something with the results.
   // The following code would be replaced with your code that does something with the ping results.
   for (uint8_t i = 0; i < numberOfDistanceSensor; i++) {
-    Serial.print("distance");
+    Serial.print("/Distance");
     Serial.print(i);
     Serial.print(" ");
     Serial.println(distanceStore[i]);
