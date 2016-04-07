@@ -45,9 +45,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\OSC.cs" />
+     <Compile Include="Assets\Scripts\OSCReceive.cs" />
+     <Compile Include="Assets\Scripts\Symbol.cs" />
+     <Compile Include="Assets\Scripts\SymbolGlowSpotlight.cs" />
      <Compile Include="Assets\Scripts\ambientLight_flicker.cs" />
+     <Compile Include="Assets\Scripts\pyramidSideSpotlight.cs" />
      <Compile Include="Assets\Scripts\pyramidSpotlight.cs" />
-     <Compile Include="Assets\Scripts\symbol.cs" />
      <Compile Include="Assets\Scripts\symbol_spotlight.cs" />
      <None Include="Assets\Resources\AlphaOne.shader" />
      <None Include="Assets\Resources\Unlit-Safe.shader" />

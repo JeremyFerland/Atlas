@@ -6,11 +6,11 @@ public class symbol_spotlight : MonoBehaviour {
 	Color[] color = new Color[2];
 	public Light light;
 	float intensityValue = 0;
-	float intensityTarget = 0.5f;
-	float intensitySpeed = 0.0005f;
+	public float intensityTarget = 1f;
+	public float intensitySpeed = 0.001f;
 	float r, g, b;
 	Color light_color;
-	float flickerSpeed = 5;
+	public float flickerSpeed = 1.5f;
 	float lerpValue;
 
 
@@ -33,17 +33,17 @@ public class symbol_spotlight : MonoBehaviour {
 
 		if (lerpValue <=0.1) {
 
-			r = Random.Range (20, 50);
-			g = Random.Range (100, 110);
-			b = Random.Range (150, 190);
+			r = Random.Range (6, 12);
+			g = Random.Range (3, 9);
+			b = Random.Range (36, 46);
 
 			color [1] = new Color (r, g, b, 1);
 
 		} else if (lerpValue >= 0.9) {
 			
-			r = Random.Range (20, 50);
-			g = Random.Range (100, 110);
-			b = Random.Range (150, 190);
+			r = Random.Range (6, 12);
+			g = Random.Range (3, 9);
+			b = Random.Range (36, 46);
 
 			color [0] = new Color (r, g, b, 1);
 		}

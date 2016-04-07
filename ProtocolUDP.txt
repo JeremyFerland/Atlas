@@ -12,7 +12,7 @@ Send: 55555
 	Road hit:
 		/RoadHit int (2 good road, 1 one road destroy, 0 wrongRoadConnect)
 	Finish
-		/Succes int (1 finish)
+		/Success int (1 finish)
 
 
 Max Son
