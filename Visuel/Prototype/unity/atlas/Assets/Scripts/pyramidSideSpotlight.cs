@@ -7,11 +7,11 @@ public class pyramidSideSpotlight : MonoBehaviour {
 	Color[] color = new Color[2];
 	public Light light;
 	float intensityValue = 0;
-	public float intensityTarget = 0.3f;
-	public float intensitySpeed = 0.0001f;
+	float intensityTarget = 0.3f;
+	float intensitySpeed = 0.001f;
 	float r, g, b;
 	Color light_color;
-	public float flickerSpeed = 1;
+	float flickerSpeed = 1;
 	float lerpValue;
 	
 	// Use this for initialization

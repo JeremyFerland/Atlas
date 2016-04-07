@@ -42,7 +42,7 @@ public class SymbolGlowSpotlight : MonoBehaviour {
 	void Update () {
 
 		// LFO value normalised + scale
-		oscillationValue = (Mathf.Sin(Time.time*4)*2)+2+oscillationScale;
+		oscillationValue = (Mathf.Sin(Time.time*4)*2)+4+oscillationScale;
 
 		fadein ();
 	}

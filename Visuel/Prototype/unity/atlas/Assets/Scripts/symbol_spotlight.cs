@@ -6,11 +6,11 @@ public class symbol_spotlight : MonoBehaviour {
 	Color[] color = new Color[2];
 	public Light light;
 	float intensityValue = 0;
-	public float intensityTarget = 1f;
-	public float intensitySpeed = 0.001f;
+	float intensityTarget = 3.5f;
+	float intensitySpeed = 0.02f;
 	float r, g, b;
 	Color light_color;
-	public float flickerSpeed = 1.5f;
+	float flickerSpeed = 1.5f;
 	float lerpValue;
 
 
