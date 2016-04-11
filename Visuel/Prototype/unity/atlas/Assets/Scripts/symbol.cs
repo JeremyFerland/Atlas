@@ -3,8 +3,16 @@ using System.Collections;
 
 public class Symbol : MonoBehaviour {
 
-	public GameObject[] prefab;
+	// Black symbol prefab objects
+	public GameObject[] symbolPrefab;
+	// White glow symbol prefab objects
+	public GameObject[] symbolGlowPrefab;
+	// Black symbol GameObject
 	public GameObject[] symbols = new GameObject[12];
+	// White glow symbol GameObject
+	public GameObject[] symbolsGlow = new GameObject[12];
+	// Symbol glow reference
+	public SymbolGlowSpotlight symbolGlowSpotlight;
 
 	// Opacity 
 	float[] opacityValue = new float[12];
@@ -18,17 +26,29 @@ public class Symbol : MonoBehaviour {
 	void Start () {
 		// Create all GameObjects from prefabs
 		for (int i = 0; i<12; i++) {
-			GameObject symbol = GameObject.Instantiate(prefab[i])as GameObject;
+			// Instanciate a black symbol prefab as new GameObject
+			GameObject symbol = GameObject.Instantiate(symbolPrefab[i])as GameObject;
+			// Instanciate a white glow symbol prefab as new GameObject
+			GameObject glow = GameObject.Instantiate(symbolGlowPrefab[i])as GameObject;
+			// Move the instance to his parent
 			symbol.transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
-			// Set position in parent
+			glow.transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
+			// Set position from parent
 			symbol.transform.localPosition = new Vector3(0,0,0);
-			// Set scale in parent
+			glow.transform.localPosition = new Vector3(0,0,0);
+			// Set scale from parent
 			symbol.transform.localScale = new Vector3(0.06f,0.06f,0.06f);
+			glow.transform.localScale = new Vector3(0.06f,0.06f,0.06f);
+			// Apply to the GameObject
 			symbols[i] = symbol;
+			symbolsGlow[i] = glow;
 			// Set starting speed & value
 			opacitySpeed[i] = Random.Range(0.002f, 0.01f);
 			opacityValue[i] = 0f;
+			// Glow effect at opacity 0
+			symbolsGlow[i].GetComponent<Renderer>().material.color = new Color (255, 255, 255, 0);
 		}
+		// Create a random position
 		shuffle();
 	}
 	// Update is called once per frame
@@ -40,40 +60,48 @@ public class Symbol : MonoBehaviour {
 			fadeoutGo = false;
 			fadein ();
 		}
-		if (Input.GetKey (KeyCode.A)) {
-			fadeoutGo = true;
-
-		} else {
-			fadeinGo = true;
+		// Symbol glow opacity
+		for (int i = 0; i <12; i++){
+			// If a symbol is selected, il will also activate the glow plane with the same oscillation pattern
+			symbolsGlow[i].GetComponent<Renderer>().material.color = new Color (255, 255, 255, (symbolGlowSpotlight.intensityValue[i]*symbolGlowSpotlight.oscillationValue)/12);
 		}
 	}
 	public void shuffle(){
 		// Shuffle the symbols
 		for (int i = 0; i<12; i++) {
-			GameObject temp = symbols[i];
+			GameObject symbolTemp = symbols[i];
+			GameObject glowTemp = symbolsGlow[i];
 			int randomIndex = Random.Range(0,12);
 			symbols[i] = symbols[randomIndex];
-			symbols[randomIndex] = temp;
+			symbolsGlow[i] = symbolsGlow[randomIndex];
+			symbols[randomIndex] = symbolTemp;
+			symbolsGlow[randomIndex] = glowTemp;
 		}
 		for (int i = 0; i<12; i++) {
 			// Place the new GameObject in his parent
 			symbols[i].transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
+			symbolsGlow[i].transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
 			// Layer placement
-			symbols[i].transform.localPosition = new Vector3(0,0,-1f);
+			symbols[i].transform.localPosition = new Vector3(0,0,-1.5f);
+			symbolsGlow[i].transform.localPosition = new Vector3(0,0,-1f);
 
 			// Rotate symbols according of his side
 			if(i <3){
 				// Up symbols
 				symbols[i].transform.localEulerAngles = new Vector3 (-90, 0, 0);
+				symbolsGlow[i].transform.localEulerAngles = new Vector3 (-90, 0, 0);
 			} else if ( i < 6){
 				// Rigth symbols
 				symbols[i].transform.localEulerAngles = new Vector3 (0, 90, -90);
+				symbolsGlow[i].transform.localEulerAngles = new Vector3 (0, 90, -90);
 			} else if ( i < 9){
 				// Down symbols
 				symbols[i].transform.localEulerAngles = new Vector3 (90, 180, 0);
+				symbolsGlow[i].transform.localEulerAngles = new Vector3 (90, 180, 0);
 			} else {
 				// Left symbols
 				symbols[i].transform.localEulerAngles = new Vector3 (0, -90, 90);
+				symbolsGlow[i].transform.localEulerAngles = new Vector3 (0, -90, 90);
 			}
 		}
 	}

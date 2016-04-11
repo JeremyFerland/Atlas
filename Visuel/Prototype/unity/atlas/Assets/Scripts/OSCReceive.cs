@@ -3,7 +3,9 @@ using System.Collections;
 
 public class OSCReceive : MonoBehaviour {
 
+	// OSC main script
 	public OSC oscReference;
+
 
 	Symbol symbols;
 	public SymbolGlowSpotlight symbolGlowSpot;

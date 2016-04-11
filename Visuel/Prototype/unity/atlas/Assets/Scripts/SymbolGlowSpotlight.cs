@@ -3,14 +3,14 @@ using System.Collections;
 
 public class SymbolGlowSpotlight : MonoBehaviour {
 	
-	public GameObject prefab;
+	public GameObject spotlightPrefab;
 	public GameObject[] lights = new GameObject[12];
 	public Light[] bulb = new Light[12];
 
-	float[] intensityValue = new float[12];
+	public float[] intensityValue = new float[12];
 	float intensitySpeed = 0.05f;
 	float intensityTarget = 1;
-	float oscillationValue;
+	public float oscillationValue = 0;
 	float oscillationScale = 2f;
 
 
@@ -21,7 +21,7 @@ public class SymbolGlowSpotlight : MonoBehaviour {
 		// Create all GameObjects from prefabs
 		for (int i = 0; i<12; i++) {
 			// Create a new object from prefab
-			GameObject light = GameObject.Instantiate(prefab)as GameObject;
+			GameObject light = GameObject.Instantiate(spotlightPrefab)as GameObject;
 			// PLace in parent
 			light.transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
 			// Set position
@@ -48,8 +48,11 @@ public class SymbolGlowSpotlight : MonoBehaviour {
 	}
 
 	public void fadein(){
+
+
 		// Update all intensity
 		for (int i = 0; i <12; i++) {
+
 			// If selected
 			if(selectSymbol[i] == true){
 				if(intensityValue[i] < intensityTarget){
