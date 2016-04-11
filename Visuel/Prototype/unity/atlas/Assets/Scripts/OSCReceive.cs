@@ -3,54 +3,54 @@ using System.Collections;
 
 public class OSCReceive : MonoBehaviour {
 
-	// OSC main script
+	// Get OSC GameObject with script
 	public OSC oscReference;
+	// Get Symbol GameObject with script
+	public Symbol symbol;
 
-
-	Symbol symbols;
-	public SymbolGlowSpotlight symbolGlowSpot;
-
-	// Use this for initialization
 	void Start () {
 		oscReference.SetAllMessageHandler(OnReceive);
 	}
 
 	void OnReceive(OscMessage message){
 
-		// Restart the game
-		if (message.address == "/Success") {
-			float data = message.GetFloat (0);
-			if (data == 1){
-			symbols.fadeout ();
+		for (int i = 0; i < 4; i++) {
+			if(message.address == "/Door"+i){
+				float data = message.GetFloat (0);
+				if(data == 1) {
+					// Set door as open
+					symbol.doorIsOpen[i] = true;
+				} else {
+					// Set door as closed
+					symbol.doorIsOpen[i] = false;
+				}
 			}
+
 		}
+
 		// Select a symbol
 		for (int i = 0; i <12; i++) {
 			if (message.address == "/Symbol"+i) {
-				Debug.Log(message.address);
+				// Get 1st value
 				float data = message.GetFloat (0);
-				Debug.Log(data);
 				if (data == 1) {
-					// Glow selected symbol
-					symbolGlowSpot.selectSymbol[i] = true;
+					// Set as selected symbol
+					symbol.selectedSymbol(i,true);
 				} else {
-					// Unglow selected symbol
-					symbolGlowSpot.selectSymbol [i] = false;
+					// Set as non-selected symbol
+					symbol.selectedSymbol(i,false);
 				}
 			}
 		}
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 
 	}
 
 	public void send(string message){
-
 		OscMessage tempMessage = new OscMessage ();
 		tempMessage = OSC.StringToOscMessage (message);
 		oscReference.Send (tempMessage);
-
 	}
 }

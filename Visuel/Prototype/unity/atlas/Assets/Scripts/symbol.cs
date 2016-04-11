@@ -11,61 +11,56 @@ public class Symbol : MonoBehaviour {
 	public GameObject[] symbols = new GameObject[12];
 	// White glow symbol GameObject
 	public GameObject[] symbolsGlow = new GameObject[12];
-	// Symbol glow reference
-	public SymbolGlowSpotlight symbolGlowSpotlight;
 
-	// Opacity 
+	// Get Symbol glow GameObject with script
+	public Glow symbolGlow;
+	// Selected symbol trigger
+	public bool[] symbolIsSelected = new bool[12];
+
+	// Fade in / out Opacity 
 	float[] opacityValue = new float[12];
 	float opacityTarget = 1f;
 	float[] opacitySpeed = new float[12];
-	// Fade triggers
-	bool fadeoutGo = false;
-	bool fadeinGo = true;
 
-	// Use this for initialization
+	public bool[] doorIsOpen = new bool[4];
+	
 	void Start () {
-		// Create all GameObjects from prefabs
+		// Create all GameObjects from prefabs and set attributes
 		for (int i = 0; i<12; i++) {
 			// Instanciate a black symbol prefab as new GameObject
-			GameObject symbol = GameObject.Instantiate(symbolPrefab[i])as GameObject;
+			GameObject symbol = GameObject.Instantiate (symbolPrefab [i])as GameObject;
 			// Instanciate a white glow symbol prefab as new GameObject
-			GameObject glow = GameObject.Instantiate(symbolGlowPrefab[i])as GameObject;
+			GameObject glow = GameObject.Instantiate (symbolGlowPrefab [i])as GameObject;
 			// Move the instance to his parent
-			symbol.transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
-			glow.transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
+			symbol.transform.parent = GameObject.FindGameObjectWithTag ("rock" + (i + 1)).transform;
+			glow.transform.parent = GameObject.FindGameObjectWithTag ("rock" + (i + 1)).transform;
 			// Set position from parent
-			symbol.transform.localPosition = new Vector3(0,0,0);
-			glow.transform.localPosition = new Vector3(0,0,0);
+			symbol.transform.localPosition = new Vector3 (0, 0, 0);
+			glow.transform.localPosition = new Vector3 (0, 0, 0);
 			// Set scale from parent
-			symbol.transform.localScale = new Vector3(0.06f,0.06f,0.06f);
-			glow.transform.localScale = new Vector3(0.06f,0.06f,0.06f);
-			// Apply to the GameObject
-			symbols[i] = symbol;
-			symbolsGlow[i] = glow;
+			symbol.transform.localScale = new Vector3 (0.06f, 0.06f, 0.06f);
+			glow.transform.localScale = new Vector3 (0.06f, 0.06f, 0.06f);
+			// Apply instance of prefab to a GameObject
+			symbols [i] = symbol;
+			symbolsGlow [i] = glow;
 			// Set starting speed & value
-			opacitySpeed[i] = Random.Range(0.002f, 0.01f);
-			opacityValue[i] = 0f;
+			opacitySpeed [i] = Random.Range (0.002f, 0.01f);
+			opacityValue [i] = 0f;
 			// Glow effect at opacity 0
-			symbolsGlow[i].GetComponent<Renderer>().material.color = new Color (255, 255, 255, 0);
+			symbolsGlow [i].GetComponent<Renderer> ().material.color = new Color (255, 255, 255, 0);
+			// All symbols starts not selected
+			symbolIsSelected [i] = false;
 		}
-		// Create a random position
+		for (int i = 0; i < 4; i++) {
+			doorIsOpen [i] = false;
+		}
+		// Set a random position to the GameObjects in the game
 		shuffle();
 	}
-	// Update is called once per frame
 	void Update () {
-		if (fadeoutGo == true) {
-			fadeinGo = false;
-			fadeout ();
-		} else if (fadeinGo == true) {
-			fadeoutGo = false;
-			fadein ();
-		}
-		// Symbol glow opacity
-		for (int i = 0; i <12; i++){
-			// If a symbol is selected, il will also activate the glow plane with the same oscillation pattern
-			symbolsGlow[i].GetComponent<Renderer>().material.color = new Color (255, 255, 255, (symbolGlowSpotlight.intensityValue[i]*symbolGlowSpotlight.oscillationValue)/12);
-		}
+
 	}
+
 	public void shuffle(){
 		// Shuffle the symbols
 		for (int i = 0; i<12; i++) {
@@ -105,8 +100,52 @@ public class Symbol : MonoBehaviour {
 			}
 		}
 	}
-	public void fadein(){
-		fadeoutGo = false;
+
+	public void door(int index, bool door){
+		// Check if door is open
+		for (int i = 0; i < 4; i++) {
+				doorIsOpen[i] = door;
+		}
+
+	}
+
+	public void selectedSymbol (int index, bool selectSide){
+		
+		if (selectSide == false) {
+			symbolIsSelected [index] = selectSide;
+			return;
+		}
+
+		if (doorIsOpen [0] == true) {
+			if (index < 3) {
+				if (symbolIsSelected [0] == false && symbolIsSelected [1] == false && symbolIsSelected [2] == false) {
+					symbolIsSelected [index] = selectSide;
+				}
+			}
+			else if (doorIsOpen [1] == true) {
+				  if (index < 6) {
+					if (symbolIsSelected [3] == false && symbolIsSelected [4] == false && symbolIsSelected [5] == false) {
+						symbolIsSelected [index] = selectSide;
+					}
+				}
+				else if (doorIsOpen [2] == true) {
+					 if ( index < 9){
+						
+						if (symbolIsSelected[6] == false && symbolIsSelected[7] == false && symbolIsSelected[8] == false){
+							symbolIsSelected[index] = selectSide;
+						}
+					}
+					else if(doorIsOpen [3] == true) {
+							if (symbolIsSelected[9] == false && symbolIsSelected[10] == false && symbolIsSelected[11] == false){
+								symbolIsSelected[index] = selectSide;
+
+						}
+					}
+				}
+			}
+		}
+	}
+	void fadeIn(){
 		// Ramp up to targetted opacity
 		for(int i = 0; i < 12; i++){
 			if (opacityValue[i] < opacityTarget) {
@@ -118,8 +157,7 @@ public class Symbol : MonoBehaviour {
 			symbols[i].GetComponent<Renderer>().material.color = new Color (255, 255, 255, opacityValue[i]);
 		}
 	}
-	public void fadeout(){
-		fadeinGo = false;
+	void fadeOut(){
 		// Ramp down to 0 if greather
 		for(int i = 0; i < 12; i++){
 			if (opacityValue[i] > 0) {
@@ -130,14 +168,15 @@ public class Symbol : MonoBehaviour {
 		for (int i = 0; i < 12; i++) {
 			symbols[i].GetComponent<Renderer>().material.color = new Color (255, 255, 255, opacityValue[i]);
 		}
+
 		// Check for opacity of every symbols
 		for (int i = 0; i < 12; i++){
 			if(opacityValue[i] > 0){
-				return;
-			}
+				return; 
+			} 
+			// When ended...
+			// Reset the game
+			shuffle();
 		}
-		// Do it if every symbols are below opaciy "0"
-		shuffle();
-		fadein();
 	}
 }
