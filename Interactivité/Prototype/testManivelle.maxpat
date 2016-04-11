@@ -3756,6 +3756,8 @@
 					"outlettype" : [ "int", "", "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 545.5, 154.0, 100.0, 22.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 505.333344, 90.999985, 100.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -4212,7 +4214,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 1161.0, 457.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1209.0, 249.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 681.5, 311.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4226,7 +4228,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 1285.0, 469.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1321.0, 249.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 793.5, 311.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4240,7 +4242,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 1285.0, 406.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1321.0, 199.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 793.5, 261.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4254,7 +4256,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 1161.0, 399.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1209.0, 199.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 681.5, 261.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4267,7 +4269,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 1197.0, 435.0, 81.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1238.0, 231.666672, 81.0, 20.0 ],
+					"presentation_rect" : [ 710.5, 293.666687, 81.0, 20.0 ],
 					"style" : "",
 					"text" : "Manivelle 4"
 				}
@@ -4334,7 +4336,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 907.0, 457.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 948.0, 245.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 420.5, 307.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4348,7 +4350,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 1031.0, 469.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1081.0, 242.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 553.5, 304.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4362,7 +4364,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 1031.0, 406.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 1081.0, 199.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 553.5, 261.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4376,7 +4378,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 907.0, 399.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 948.0, 202.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 420.5, 264.666687, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4389,7 +4391,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 943.0, 435.0, 81.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 994.0, 226.666672, 81.0, 20.0 ],
+					"presentation_rect" : [ 466.5, 288.666687, 81.0, 20.0 ],
 					"style" : "",
 					"text" : "Manivelle 3"
 				}
@@ -4404,7 +4406,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 558.0, 457.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 699.0, 246.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 619.0, 194.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4418,7 +4420,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 682.0, 469.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 825.0, 246.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 745.0, 194.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4432,7 +4434,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 682.0, 406.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 825.0, 203.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 745.0, 151.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4446,7 +4448,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 558.0, 399.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 699.0, 203.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 619.0, 151.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4511,7 +4513,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 594.0, 435.0, 81.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 733.0, 226.666672, 81.0, 20.0 ],
+					"presentation_rect" : [ 653.0, 174.666672, 81.0, 20.0 ],
 					"style" : "",
 					"text" : "Manivelle 2"
 				}
@@ -4551,7 +4553,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 437.0, 469.0, 37.0, 22.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 674.5, 138.333328, 37.0, 22.0 ],
+					"presentation_rect" : [ 660.5, 90.999985, 37.0, 22.0 ],
 					"style" : "",
 					"text" : "reset"
 				}
@@ -4566,7 +4568,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 122.0, 457.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 505.333344, 249.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 425.333344, 197.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4580,7 +4582,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 246.0, 469.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 620.333374, 249.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 540.333374, 197.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4594,7 +4596,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 246.0, 406.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 624.333374, 191.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 544.333374, 139.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4608,7 +4610,7 @@
 					"outlettype" : [ "bang" ],
 					"patching_rect" : [ 122.0, 399.0, 24.0, 24.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 505.333344, 191.666672, 24.0, 24.0 ],
+					"presentation_rect" : [ 425.333344, 139.666672, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -4747,7 +4749,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 158.0, 435.0, 71.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 541.333374, 227.666672, 71.0, 20.0 ],
+					"presentation_rect" : [ 461.333374, 175.666672, 71.0, 20.0 ],
 					"style" : "",
 					"text" : "Manivelle\n"
 				}
