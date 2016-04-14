@@ -22,31 +22,31 @@ public class cylindre : MonoBehaviour {
 				if(eulerAngle == new Vector3 (-1000,0,0)){
 					transform.localEulerAngles = new Vector3(0,0,270);
 					eulerAngle = transform.localEulerAngles;
-					removeThatToScale = Mathf.Abs(initialPosition.x);
+					removeThatToScale = initialPosition.x;
 				}
 				float scaleX = Mathf.MoveTowards(initialPosition.x, targetPosition.x, 0.05f);
 				if(scaleX-removeThatToScale == 0){
 					return;
 				}
 				initialPosition = new Vector2(scaleX,initialPosition.y);
-				transform.localScale = new Vector3(1,scaleX-removeThatToScale,1);
-				if(Mathf.Round(initialPosition.x)  == Mathf.Round(targetPosition.x)){
+				transform.localScale = new Vector3(0.2f,scaleX-removeThatToScale,0.2f);
+				if(Mathf.Round(initialPosition.x *1000)  == Mathf.Round(targetPosition.x*1000)){
 					isFinish = true;
 				}
 
-			}else{
+			}else if (initialPosition.y != targetPosition.y){
 				if(eulerAngle == new Vector3 (-1000,0,0)){
 					transform.localEulerAngles = new Vector3(0,0,0);
 					eulerAngle = transform.localEulerAngles;	
-					removeThatToScale = Mathf.Abs(initialPosition.y);
+					removeThatToScale = initialPosition.y;
 				}
 				float scaleY = Mathf.MoveTowards(initialPosition.y, targetPosition.y, 0.05f);
 				initialPosition = new Vector2(initialPosition.x,scaleY);
 				if(scaleY-removeThatToScale == 0){
 					return;
 				}
-				transform.localScale = new Vector3(1,scaleY-removeThatToScale,1);
-				if(Mathf.Round(initialPosition.y * 10)  == Mathf.Round(targetPosition.y * 10)){
+				transform.localScale = new Vector3(0.2f,scaleY-removeThatToScale,0.2f);
+				if(Mathf.Round(initialPosition.y * 1000)  == Mathf.Round(targetPosition.y * 1000)){
 					isFinish = true;
 				}
 			}

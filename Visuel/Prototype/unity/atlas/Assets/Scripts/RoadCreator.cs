@@ -10,20 +10,25 @@ public class RoadCreator : MonoBehaviour {
 	public bool isRoadStart = false;
 	public bool isRoadFinish = false;
 	int index = -1;
+	public bool isGood = false;
 
 
 	public void StartRoad (){
 		isRoadStart = true;
+		roads = new cylindre[roadPts.Length];
 		nextRoad ();
 	}
 
 	public void DestroyRoad(){
-	
+		Renderer[] cylindres = GetComponentsInChildren<Renderer> ();
+		foreach (Renderer temp in cylindres) {
+			GameObject.Destroy(temp.gameObject);
+		}
 	}
 
 	// Use this for initialization
 	void Start () {
-		roads = new cylindre[roadPts.Length];
+
 	}
 	
 	// Update is called once per frame
@@ -44,19 +49,22 @@ public class RoadCreator : MonoBehaviour {
 		index++;
 		if (index >= roadPts.Length -1) {
 			isRoadFinish = true;
+			if(!isGood){
+				DestroyRoad();
+			}
 			return;
 		}
 		GameObject tempCorner = GameObject.Instantiate (corner) as GameObject;
 		tempCorner.transform.parent = this.transform;
-		tempCorner.transform.position = roadPts [index];
+		tempCorner.transform.position = new Vector3(roadPts [index].x,roadPts[index].y, 1);
 		GameObject tempNextRoad = GameObject.Instantiate(roadPrefab)as GameObject;
 		tempNextRoad.transform.parent = this.transform;
 		cylindre cylindre = tempNextRoad.GetComponent<cylindre> ();
-		tempNextRoad.transform.position = roadPts [index];
+		tempNextRoad.transform.position = new Vector3(roadPts [index].x,roadPts[index].y, 1);
 		cylindre.initialPosition = roadPts[index];
 		cylindre.targetPosition = roadPts[index+1];
 		cylindre.isCreating = true;
 		roads [index] = cylindre;
-		tempCorner.transform.localScale = new Vector3 (1, 1, 1);
+		tempCorner.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f);
 	}
 }

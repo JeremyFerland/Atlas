@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Symbol : MonoBehaviour {
@@ -17,13 +17,15 @@ public class Symbol : MonoBehaviour {
 	// Selected symbol trigger
 	public bool[] symbolIsSelected = new bool[12];
 
+	public RoadCreator[] roadCreator;
+
 	// Fade in / out Opacity 
 	float[] opacityValue = new float[12];
 	float opacityTarget = 1f;
 	float[] opacitySpeed = new float[12];
 
 	public bool[] doorIsOpen = new bool[4];
-	
+
 	void Start () {
 		// Create all GameObjects from prefabs and set attributes
 		for (int i = 0; i<12; i++) {
@@ -62,6 +64,11 @@ public class Symbol : MonoBehaviour {
 	}
 
 	public void shuffle(){
+
+		int firtsGood = Random.Range (1, 4);
+		ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + firtsGood).GetComponent<ChooseRoad> ();
+		road.isGood = true;
+
 		// Shuffle the symbols
 		for (int i = 0; i<12; i++) {
 			GameObject symbolTemp = symbols[i];
@@ -106,41 +113,105 @@ public class Symbol : MonoBehaviour {
 		for (int i = 0; i < 4; i++) {
 				doorIsOpen[i] = door;
 		}
-
 	}
 
 	public void selectedSymbol (int index, bool selectSide){
 		
 		if (selectSide == false) {
 			symbolIsSelected [index] = selectSide;
+//			roadCreator[(int)Mathf.Floor(index/4)].DestroyRoad();
 			return;
 		}
-
 		if (doorIsOpen [0] == true) {
 			if (index < 3) {
 				if (symbolIsSelected [0] == false && symbolIsSelected [1] == false && symbolIsSelected [2] == false) {
 					symbolIsSelected [index] = selectSide;
+					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock"+ (index+1)).GetComponent<ChooseRoad> ();
+					int random = Random.Range (0, 3);
+//					int random = 2;
+					if (random == 0) {
+						roadCreator [0].roadPts = road.chemin1;
+					} else if (random == 1) {
+						roadCreator [0].roadPts = road.chemin2;
+					} else {
+						roadCreator [0].roadPts = road.chemin3;
+					}
+					roadCreator [0].isGood = road.isGood;
+					roadCreator [0].StartRoad ();
 				}
 			}
-			else if (doorIsOpen [1] == true) {
-				  if (index < 6) {
-					if (symbolIsSelected [3] == false && symbolIsSelected [4] == false && symbolIsSelected [5] == false) {
-						symbolIsSelected [index] = selectSide;
+		} else if (doorIsOpen [1] == true) {
+			if (index < 6) {
+				if (symbolIsSelected [3] == false && symbolIsSelected [4] == false && symbolIsSelected [5] == false) {
+					symbolIsSelected [index] = selectSide;
+					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock"+ (index+1)).GetComponent<ChooseRoad> ();
+					int random = Random.Range (0, 3);
+//					int random = 0;
+					if (random == 0) {
+						roadCreator [1].roadPts = road.chemin1;
+					} else if (random == 1) {
+						roadCreator [1].roadPts = road.chemin2;
+					} else {
+						roadCreator [1].roadPts = road.chemin3;
 					}
+					roadCreator [1].isGood = road.isGood;
+					roadCreator [1].StartRoad ();
 				}
-				else if (doorIsOpen [2] == true) {
-					 if ( index < 9){
-						
-						if (symbolIsSelected[6] == false && symbolIsSelected[7] == false && symbolIsSelected[8] == false){
-							symbolIsSelected[index] = selectSide;
-						}
+			}
+		} else if (doorIsOpen [2] == true) {
+			if (index < 9) {
+				if (symbolIsSelected [6] == false && symbolIsSelected [7] == false && symbolIsSelected [8] == false) {
+					symbolIsSelected [index] = selectSide;
+					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (index+1)).GetComponent<ChooseRoad> ();
+//					int random = Random.Range (0, 3);
+					int random = 0;
+					if (random == 0) {
+						roadCreator [2].roadPts = road.chemin1;
+					} else if (random == 1) {
+						roadCreator [2].roadPts = road.chemin2;
+					} else {
+						roadCreator [2].roadPts = road.chemin3;
 					}
-					else if(doorIsOpen [3] == true) {
-							if (symbolIsSelected[9] == false && symbolIsSelected[10] == false && symbolIsSelected[11] == false){
-								symbolIsSelected[index] = selectSide;
-
-						}
+					roadCreator [2].isGood = road.isGood;
+					roadCreator [2].StartRoad ();
+				}
+			}
+		}
+		else if(doorIsOpen [3] == true) {
+				if (symbolIsSelected[9] == false && symbolIsSelected[10] == false && symbolIsSelected[11] == false){
+					symbolIsSelected[index] = selectSide;
+				ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (index+1)).GetComponent<ChooseRoad> ();
+//					int random = Random.Range(0,3);
+					int random = 0;
+					if(random == 0){
+						roadCreator[3].roadPts = road.chemin1;
+					}else if(random ==1){
+						roadCreator[3].roadPts = road.chemin2;
+					}else {
+						roadCreator[3].roadPts = road.chemin3;
 					}
+					roadCreator[3].isGood = road.isGood;
+					roadCreator[3].StartRoad();
+			}
+		}
+		for (int i =0; i <4; i++) {
+			if (doorIsOpen[i] == false){
+				if (i == 0){
+					symbolIsSelected[0] = false;
+					symbolIsSelected[1] = false;
+					symbolIsSelected[2] = false;
+				} else if ( i == 1){
+					symbolIsSelected[3] = false;
+					symbolIsSelected[4] = false;
+					symbolIsSelected[5] = false;
+				} else if ( i == 2){
+					symbolIsSelected[6] = false;
+					symbolIsSelected[7] = false;
+					symbolIsSelected[8] = false;
+				} else {
+					symbolIsSelected[9] = false;
+					symbolIsSelected[10] = false;
+					symbolIsSelected[11] = false;
 				}
 			}
 		}

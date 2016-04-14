@@ -45,13 +45,15 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ChooseRoad.cs" />
      <Compile Include="Assets\Scripts\Glow.cs" />
      <Compile Include="Assets\Scripts\OSC.cs" />
      <Compile Include="Assets\Scripts\OSCReceive.cs" />
-     <Compile Include="Assets\Scripts\Path.cs" />
      <Compile Include="Assets\Scripts\PyramidSideSpotlight.cs" />
+     <Compile Include="Assets\Scripts\RoadCreator.cs" />
      <Compile Include="Assets\Scripts\Symbol.cs" />
      <Compile Include="Assets\Scripts\Symbol_spotlight.cs" />
+     <Compile Include="Assets\Scripts\cylindre.cs" />
      <None Include="Assets\Resources\AlphaOne.shader" />
      <None Include="Assets\Resources\Unlit-Safe.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
