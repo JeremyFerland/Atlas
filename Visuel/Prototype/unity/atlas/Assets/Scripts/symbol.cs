@@ -119,7 +119,7 @@ public class Symbol : MonoBehaviour {
 		
 		if (selectSide == false) {
 			symbolIsSelected [index] = selectSide;
-//			roadCreator[(int)Mathf.Floor(index/4)].DestroyRoad();
+			roadCreator[(int)Mathf.Floor(index/4)].DestroyRoad();
 			return;
 		}
 		if (doorIsOpen [0] == true) {
@@ -128,7 +128,6 @@ public class Symbol : MonoBehaviour {
 					symbolIsSelected [index] = selectSide;
 					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock"+ (index+1)).GetComponent<ChooseRoad> ();
 					int random = Random.Range (0, 3);
-//					int random = 2;
 					if (random == 0) {
 						roadCreator [0].roadPts = road.chemin1;
 					} else if (random == 1) {
@@ -146,7 +145,6 @@ public class Symbol : MonoBehaviour {
 					symbolIsSelected [index] = selectSide;
 					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock"+ (index+1)).GetComponent<ChooseRoad> ();
 					int random = Random.Range (0, 3);
-//					int random = 0;
 					if (random == 0) {
 						roadCreator [1].roadPts = road.chemin1;
 					} else if (random == 1) {
@@ -163,8 +161,7 @@ public class Symbol : MonoBehaviour {
 				if (symbolIsSelected [6] == false && symbolIsSelected [7] == false && symbolIsSelected [8] == false) {
 					symbolIsSelected [index] = selectSide;
 					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (index+1)).GetComponent<ChooseRoad> ();
-//					int random = Random.Range (0, 3);
-					int random = 0;
+					int random = Random.Range (0, 3);
 					if (random == 0) {
 						roadCreator [2].roadPts = road.chemin1;
 					} else if (random == 1) {
@@ -180,9 +177,8 @@ public class Symbol : MonoBehaviour {
 		else if(doorIsOpen [3] == true) {
 				if (symbolIsSelected[9] == false && symbolIsSelected[10] == false && symbolIsSelected[11] == false){
 					symbolIsSelected[index] = selectSide;
-				ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (index+1)).GetComponent<ChooseRoad> ();
-//					int random = Random.Range(0,3);
-					int random = 0;
+					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (index+1)).GetComponent<ChooseRoad> ();
+					int random = Random.Range(0,3);
 					if(random == 0){
 						roadCreator[3].roadPts = road.chemin1;
 					}else if(random ==1){
