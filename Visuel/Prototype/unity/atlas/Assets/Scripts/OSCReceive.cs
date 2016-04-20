@@ -14,13 +14,14 @@ public class OSCReceive : MonoBehaviour {
 
 	void OnReceive(OscMessage message){
 
+
 		for (int i = 0; i < 4; i++) {
 			if(message.address == "/Door"+i){
 				float data = message.GetFloat (0);
 				if(data == 1) {
 					// Set door as open
 					symbol.doorIsOpen[i] = true;
-				} else {
+				} else if (data == 0){
 					// Set door as closed
 					symbol.doorIsOpen[i] = false;
 				}
@@ -36,7 +37,7 @@ public class OSCReceive : MonoBehaviour {
 				if (data == 1) {
 					// Set as selected symbol
 					symbol.selectedSymbol(i,true);
-				} else {
+				} else if (data == 0) {
 					// Set as non-selected symbol
 					symbol.selectedSymbol(i,false);
 				}
@@ -45,6 +46,7 @@ public class OSCReceive : MonoBehaviour {
 	}
 
 	void Update () {
+
 
 	}
 

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Symbol : MonoBehaviour {
 
+	public OSCReceive osc;
 	// Black symbol prefab objects
 	public GameObject[] symbolPrefab;
 	// White glow symbol prefab objects
@@ -19,12 +20,16 @@ public class Symbol : MonoBehaviour {
 
 	public RoadCreator[] roadCreator;
 
+	public Particles particle;
+
 	// Fade in / out Opacity 
 	float[] opacityValue = new float[12];
 	float opacityTarget = 1f;
 	float[] opacitySpeed = new float[12];
-
+	
 	public bool[] doorIsOpen = new bool[4];
+
+	public bool success = false;
 
 	void Start () {
 		// Create all GameObjects from prefabs and set attributes
@@ -61,13 +66,73 @@ public class Symbol : MonoBehaviour {
 	}
 	void Update () {
 
+		if (doorIsOpen [0] == true && doorIsOpen [1] == true && doorIsOpen [2] == true && doorIsOpen [3] == true) {
+			if ((roadCreator[0].isGood && roadCreator[0].isRoadFinish == true) && (roadCreator[1].isGood && roadCreator[1].isRoadFinish == true) && (roadCreator[2].isGood && roadCreator[2].isRoadFinish == true) && (roadCreator[3].isGood && roadCreator[3].isRoadFinish == true)){
+				success = true;
+			}
+		}
+
+		if (success == true) {
+			fadeOut ();
+		} else if (success == false) {
+			fadeIn();
+		}
+
+
+		for (int i =0; i <4; i++) {
+			if (doorIsOpen[i] == false){
+				if (i == 0){
+					symbolIsSelected[0] = false;
+					symbolIsSelected[1] = false;
+					symbolIsSelected[2] = false;
+					symbolGlow.isLocked[0] = false;
+					symbolGlow.isLocked[1] = false;
+					symbolGlow.isLocked[2] = false;
+					roadCreator[0].isLocked = false;
+					roadCreator[0].destroyRoadWithDoor();
+				} else if ( i == 1){
+					symbolIsSelected[3] = false;
+					symbolIsSelected[4] = false;
+					symbolIsSelected[5] = false;
+					symbolGlow.isLocked[3] = false;
+					symbolGlow.isLocked[4] = false;
+					symbolGlow.isLocked[5] = false;
+					roadCreator[1].isLocked = false;
+					roadCreator[1].destroyRoadWithDoor();
+				} else if ( i == 2){
+					symbolIsSelected[6] = false;
+					symbolIsSelected[7] = false;
+					symbolIsSelected[8] = false;
+					symbolGlow.isLocked[6] = false;
+					symbolGlow.isLocked[7] = false;
+					symbolGlow.isLocked[8] = false;
+					roadCreator[2].isLocked = false;
+					roadCreator[2].destroyRoadWithDoor();
+				} else {
+					symbolIsSelected[9] = false;
+					symbolIsSelected[10] = false;
+					symbolIsSelected[11] = false;
+					symbolGlow.isLocked[9] = false;
+					symbolGlow.isLocked[10] = false;
+					symbolGlow.isLocked[11] = false;
+					roadCreator[3].isLocked = false;
+					roadCreator[3].destroyRoadWithDoor();
+				}
+			}
+		}
+
 	}
 
 	public void shuffle(){
-
-		int firtsGood = Random.Range (1, 4);
-		ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + firtsGood).GetComponent<ChooseRoad> ();
-		road.isGood = true;
+		for (int i = 0; i<12; i++) {
+			ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (i+1)).GetComponent<ChooseRoad> ();
+			road.isGood = false;
+		}
+		for (int i =0; i<4; i++) {
+			int firstGood = Random.Range (1, 4);
+			ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (firstGood+i*3)).GetComponent<ChooseRoad> ();
+			road.isGood = true;
+		}
 
 		// Shuffle the symbols
 		for (int i = 0; i<12; i++) {
@@ -118,13 +183,20 @@ public class Symbol : MonoBehaviour {
 	public void selectedSymbol (int index, bool selectSide){
 		
 		if (selectSide == false) {
+			if(symbolIsSelected[index] == true){
+				roadCreator[(int)Mathf.Floor(index/4)].DestroyRoad();
+			}
 			symbolIsSelected [index] = selectSide;
-			roadCreator[(int)Mathf.Floor(index/4)].DestroyRoad();
 			return;
 		}
 		if (doorIsOpen [0] == true) {
 			if (index < 3) {
-				if (symbolIsSelected [0] == false && symbolIsSelected [1] == false && symbolIsSelected [2] == false) {
+				if (roadCreator[0].isGood && roadCreator[0].isRoadFinish == true){
+					roadCreator[0].isLocked = true;
+					symbolGlow.isLocked[index] = true;
+					osc.send ("/RoadHit"+ " " + 2); // 2 = good road
+				}
+				 else if (symbolIsSelected [0] == false && symbolIsSelected [1] == false && symbolIsSelected [2] == false) {
 					symbolIsSelected [index] = selectSide;
 					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock"+ (index+1)).GetComponent<ChooseRoad> ();
 					int random = Random.Range (0, 3);
@@ -139,9 +211,14 @@ public class Symbol : MonoBehaviour {
 					roadCreator [0].StartRoad ();
 				}
 			}
-		} else if (doorIsOpen [1] == true) {
-			if (index < 6) {
-				if (symbolIsSelected [3] == false && symbolIsSelected [4] == false && symbolIsSelected [5] == false) {
+		} if (doorIsOpen [1] == true) {
+			if (index < 6 && index >=3) {
+				if (roadCreator[1].isGood && roadCreator[1].isRoadFinish == true){
+					roadCreator[1].isLocked = true;
+					symbolGlow.isLocked[index] = true;
+					osc.send ("/RoadHit"+ " " + 2); // 2 = good road
+				}
+				else if (symbolIsSelected [3] == false && symbolIsSelected [4] == false && symbolIsSelected [5] == false) {
 					symbolIsSelected [index] = selectSide;
 					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock"+ (index+1)).GetComponent<ChooseRoad> ();
 					int random = Random.Range (0, 3);
@@ -156,9 +233,14 @@ public class Symbol : MonoBehaviour {
 					roadCreator [1].StartRoad ();
 				}
 			}
-		} else if (doorIsOpen [2] == true) {
-			if (index < 9) {
-				if (symbolIsSelected [6] == false && symbolIsSelected [7] == false && symbolIsSelected [8] == false) {
+		} if (doorIsOpen [2] == true) {
+			if (index < 9 && index >=6) {
+				if (roadCreator[2].isGood && roadCreator[2].isRoadFinish == true){
+					roadCreator[2].isLocked = true;
+					symbolGlow.isLocked[index] = true;
+					osc.send ("/RoadHit"+ " " + 2); // 2 = good road
+				}
+				else if (symbolIsSelected [6] == false && symbolIsSelected [7] == false && symbolIsSelected [8] == false) {
 					symbolIsSelected [index] = selectSide;
 					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (index+1)).GetComponent<ChooseRoad> ();
 					int random = Random.Range (0, 3);
@@ -173,41 +255,26 @@ public class Symbol : MonoBehaviour {
 					roadCreator [2].StartRoad ();
 				}
 			}
-		}
-		else if(doorIsOpen [3] == true) {
-				if (symbolIsSelected[9] == false && symbolIsSelected[10] == false && symbolIsSelected[11] == false){
+		} if(doorIsOpen [3] == true) {
+			if ( index >= 9){
+				if (roadCreator[3].isGood && roadCreator[3].isRoadFinish == true){
+					roadCreator[3].isLocked = true;
+					symbolGlow.isLocked[index] = true;
+					osc.send ("/RoadHit"+ " " + 2); // 2 = good road
+				}
+				else if (symbolIsSelected[9] == false && symbolIsSelected[10] == false && symbolIsSelected[11] == false){
 					symbolIsSelected[index] = selectSide;
 					ChooseRoad road = GameObject.FindGameObjectWithTag ("rock" + (index+1)).GetComponent<ChooseRoad> ();
 					int random = Random.Range(0,3);
 					if(random == 0){
 						roadCreator[3].roadPts = road.chemin1;
-					}else if(random ==1){
+					}else if(random == 1){
 						roadCreator[3].roadPts = road.chemin2;
 					}else {
 						roadCreator[3].roadPts = road.chemin3;
 					}
 					roadCreator[3].isGood = road.isGood;
 					roadCreator[3].StartRoad();
-			}
-		}
-		for (int i =0; i <4; i++) {
-			if (doorIsOpen[i] == false){
-				if (i == 0){
-					symbolIsSelected[0] = false;
-					symbolIsSelected[1] = false;
-					symbolIsSelected[2] = false;
-				} else if ( i == 1){
-					symbolIsSelected[3] = false;
-					symbolIsSelected[4] = false;
-					symbolIsSelected[5] = false;
-				} else if ( i == 2){
-					symbolIsSelected[6] = false;
-					symbolIsSelected[7] = false;
-					symbolIsSelected[8] = false;
-				} else {
-					symbolIsSelected[9] = false;
-					symbolIsSelected[10] = false;
-					symbolIsSelected[11] = false;
 				}
 			}
 		}
@@ -241,9 +308,11 @@ public class Symbol : MonoBehaviour {
 			if(opacityValue[i] > 0){
 				return; 
 			} 
-			// When ended...
-			// Reset the game
-			shuffle();
+
+		}
+		for (int j = 0; j < 12; j++){
+				symbolGlow.isLocked[j] = false;
+
 		}
 	}
 }

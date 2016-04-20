@@ -18,6 +18,8 @@ public class Glow : MonoBehaviour {
 	// Oscillation value
 	float oscillationValue = 0;
 	float oscillationScale = 2f;
+
+	public bool[] isLocked = new bool[12];
 	
 	void Start () {
 		// Create all GameObjects from prefabs
@@ -27,7 +29,7 @@ public class Glow : MonoBehaviour {
 			// PLace in parent
 			light.transform.parent = GameObject.FindGameObjectWithTag("rock"+(i+1)).transform;
 			// Set position
-			light.transform.localPosition = new Vector3(0,0,60);
+			light.transform.localPosition = new Vector3(0,0,62.5f);
 			// Assing prefab to a new GameObject
 			spotlight[i] = light;
 			// Get the light
@@ -42,8 +44,12 @@ public class Glow : MonoBehaviour {
 		// LFO value normalised + scale
 		oscillationValue = (Mathf.Sin(Time.time*4)*2)+4+oscillationScale;
 		for (int i = 0; i < 12; i++) {
+			if(!isLocked[i]){
 			// If a symbol is selected, il will also activate the glow plane with the same oscillation pattern
-			symbol.symbolsGlow [i].GetComponent<Renderer> ().material.color = new Color (255, 255, 255, (symbol.symbolGlow.intensityValue [i] * symbol.symbolGlow.oscillationValue) / 12);
+				symbol.symbolsGlow[i].GetComponent<Renderer> ().material.color = new Color (255, 255, 255, (symbol.symbolGlow.intensityValue [i] * symbol.symbolGlow.oscillationValue) / 12);
+			}else{
+				symbol.symbolsGlow[i].GetComponent<Renderer> ().material.color = new Color (255, 0, 255, (symbol.symbolGlow.intensityValue [i] * symbol.symbolGlow.oscillationValue) / 12);
+			}
 		}
 		// Glow if selected
 		glow();
@@ -61,8 +67,10 @@ public class Glow : MonoBehaviour {
 				// If not selected
 			} else if (symbol.symbolIsSelected[i] == false) {
 				// Less intensity
-				if (intensityValue[i]> 0){
-					intensityValue[i] -= intensitySpeed;
+				if(!isLocked[i]){
+					if (intensityValue[i]> 0){
+						intensityValue[i] -= intensitySpeed;
+					}
 				}
 			}
 			// Update intensity value

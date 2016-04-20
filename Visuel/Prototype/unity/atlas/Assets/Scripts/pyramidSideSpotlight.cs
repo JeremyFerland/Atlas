@@ -8,7 +8,7 @@ public class PyramidSideSpotlight : MonoBehaviour {
 	// Create to color to lerp in
 	Color[] color = new Color[2];
 	// Set intensity of the light
-	float intensityValue = 0;
+	public float intensityValue = 0;
 	float intensityTarget = 0.3f;
 	float intensitySpeed = 0.001f;
 	// Color 
@@ -18,7 +18,10 @@ public class PyramidSideSpotlight : MonoBehaviour {
 	float flickerSpeed = 1;
 	float lerpValue;
 	// Fade in/out control
-	bool onOff = false;
+	bool onOff;
+
+	public bool success;
+	float climaxValue = 0;
 
 	void Start () {
 		// Get light component
@@ -29,33 +32,62 @@ public class PyramidSideSpotlight : MonoBehaviour {
 		}
 		// Start fading-in
 		onOff = true;
+		success = false;
 	}
 
 	void Update () {
-		if (onOff == true) {
-			fadeIn();
-		} else {
-//			fadeout();
-		}
-		// Flicker over time
-		lerpValue = Mathf.PingPong (Time.time * flickerSpeed, 1);
-		// Lerp color variation over lerp time
-		light.color = Color.Lerp(color[0], color[1], lerpValue);
+			if (onOff == true) {
+				fadeIn ();
+			} else {
+				fadeOut ();
+			}
+		if (success == false) {
+			if(intensityValue > intensityTarget){
+				intensityValue -= intensitySpeed;
+				light.intensity = intensityValue;
+			}
+			// Flicker over time
+			lerpValue = Mathf.PingPong (Time.time * flickerSpeed, 1);
+			// Lerp color variation over lerp time
+			light.color = Color.Lerp (color [0], color [1], lerpValue);
 		
-		if (lerpValue <=0.1) {	// If lerp starts
-			// Create a new color
-			r = Random.Range (6, 12);
-			g = Random.Range (3, 9);
-			b = Random.Range (36, 46);
-			// Apply to next color
-			color [1] = new Color (r, g, b, 1);
-		} else if (lerpValue >= 0.9) {	// If lerp ends
-			// Create a new color
-			r = Random.Range (6, 12);
-			g = Random.Range (3, 9);
-			b = Random.Range (36, 46);
-			// Apply to the next color
-			color [0] = new Color (r, g, b, 1);
+			if (lerpValue <= 0.1) {	// If lerp starts
+				// Create a new color
+				r = Random.Range (6, 12);
+				g = Random.Range (3, 9);
+				b = Random.Range (36, 46);
+				// Apply to next color
+				color [1] = new Color (r, g, b, 1);
+			} else if (lerpValue >= 0.9) {	// If lerp ends
+				// Create a new color
+				r = Random.Range (6, 12);
+				g = Random.Range (3, 9);
+				b = Random.Range (36, 46);
+				// Apply to the next color
+				color [0] = new Color (r, g, b, 1);
+			}
+		} else if (success == true){
+			climax ();
+			// Flicker over time
+			lerpValue = Mathf.PingPong (Time.time * flickerSpeed, 1);
+			// Lerp color variation over lerp time
+			light.color = Color.Lerp (color [0], color [1], lerpValue);
+			
+			if (lerpValue <= 0.1) {	// If lerp starts
+				// Create a new color
+				r = Random.Range (6, 12);
+				g = Random.Range (3, 9);
+				b = Random.Range (36, 46);
+				// Apply to next color
+				color [1] = new Color (r, g, b, 1);
+			} else if (lerpValue >= 0.9) {	// If lerp ends
+				// Create a new color
+				r = Random.Range (6, 12);
+				g = Random.Range (3, 9);
+				b = Random.Range (36, 46);
+				// Apply to the next color
+				color [0] = new Color (r, g, b, 1);
+			}
 		}
 	}
 
@@ -77,5 +109,14 @@ public class PyramidSideSpotlight : MonoBehaviour {
 		}
 		// Apply intensity
 		light.intensity = intensityValue;
+	}
+
+	void climax(){
+		if (success == true) {
+			if (climaxValue < 8) {
+				climaxValue += 0.01f;
+			}
+			light.intensity = Random.Range (0, climaxValue);
+		} 
 	}
 }

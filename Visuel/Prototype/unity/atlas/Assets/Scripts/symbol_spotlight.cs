@@ -35,7 +35,7 @@ public class Symbol_spotlight : MonoBehaviour {
 		if (onOff == true) {
 			fadeIn();
 		} else {
-//			fadeout();
+			fadeOut();
 		}
 		// Flicker over time
 		lerpValue = Mathf.PingPong (Time.time * flickerSpeed, 1);
